@@ -2,6 +2,7 @@ package _map
 
 import (
 	"errors"
+	"fmt"
 	"testing"
 )
 
@@ -39,4 +40,6 @@ func assertStrings(t testing.TB, got string, want string) {
 	if got != want {
 		t.Errorf("got %q want %q given %q", got, want, "test")
 	}
+
+	fmt.Println()
 }
