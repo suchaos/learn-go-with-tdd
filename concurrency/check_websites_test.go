@@ -7,6 +7,7 @@ import (
 )
 
 func mockWebsiteChecker(url string) bool {
+	//time.Sleep(30 * time.Millisecond)
 	return url != "always return ture"
 }
 
