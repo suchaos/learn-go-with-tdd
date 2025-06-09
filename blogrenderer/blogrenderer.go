@@ -11,18 +11,26 @@ type Post struct {
 	Tags                     []string
 }
 
+type PostRenderer struct {
+	template *template.Template
+}
+
 var (
 	//go:embed "templates/*"
 	postTemplates embed.FS
 )
 
-func Render(w io.Writer, post Post) error {
+func NewPostRenderer() (*PostRenderer, error) {
 	templ, err := template.ParseFS(postTemplates, "templates/*.gohtml")
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	err = templ.Execute(w, post)
+	return &PostRenderer{template: templ}, nil
+}
+
+func (r *PostRenderer) Render(w io.Writer, post Post) error {
+	err := r.template.ExecuteTemplate(w, "blog.gohtml", post)
 	if err != nil {
 		return err
 	}
